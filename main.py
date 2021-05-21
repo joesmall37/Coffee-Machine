@@ -1,5 +1,41 @@
+MENU = {
+    "espresso": {
+        "ingredients": {
+            "water": 50,
+            "coffee": 18,
+        },
+        "cost": 1.5,
+    },
+    "latte": {
+        "ingredients": {
+            "water": 200,
+            "milk": 150,
+            "coffee": 24,
+        },
+        "cost": 2.5,
+    },
+    "cappuccino": {
+        "ingredients": {
+            "water": 250,
+            "milk": 100,
+            "coffee": 24,
+        },
+        "cost": 3.0,
+    }
+}
+
+profit = 0
+resources = {
+    "water": 300,
+    "milk": 200,
+    "coffee": 100,
+}
+# step 4 check if resources are sufficient
+# this will take the order ingredients as an input and work on it
+
 def is_resource_sufficient(order_ingredients):
     """Returns True when order can be made, False if ingredients are insufficient."""
+    # for each loop
     for item in order_ingredients:
         if order_ingredients[item] > resources[item]:
             print(f"​Sorry there is not enough {item}.")
@@ -38,19 +74,26 @@ def make_coffee(drink_name, order_ingredients):
 
 
 is_on = True
+
 # prompt the user to ask what they like
+# step 1
 # since the prompt should show every time an action is completed I will use a while loop
 while is_on:
     choice = input("​What would you like? (espresso/latte/cappuccino): ")
+    # step 2
     # turn off the coffee machine when choice == 'off'
     if choice == "off":
         is_on = False
+    # step 3
+    # when a user choose report - print out a detailed report of the resources remaining
+    # water, milk, coffee, and money
     elif choice == "report":
         print(f"Water: {resources['water']}ml")
         print(f"Milk: {resources['milk']}ml")
         print(f"Coffee: {resources['coffee']}g")
         print(f"Money: ${profit}")
     else:
+        # step 5
         drink = MENU[choice]
         if is_resource_sufficient(drink["ingredients"]):
             payment = process_coins()
