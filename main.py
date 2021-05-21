@@ -1,3 +1,7 @@
+# object containing the menu
+# each drink contains a certain amount of water, cofee, and or milk
+# each drink has a cost
+
 MENU = {
     "espresso": {
         "ingredients": {
@@ -30,7 +34,9 @@ resources = {
     "milk": 200,
     "coffee": 100,
 }
-# step 4 check if resources are sufficient
+
+# step 4 ------------
+# check if resources are sufficient
 # this will take the order ingredients as an input and work on it
 
 # function to make sure the order ingredients aren't more than the resources available
@@ -85,18 +91,26 @@ def make_coffee(drink_name, order_ingredients):
     print(f"Here is your {drink_name} ☕️. Enjoy!")
 
 
+
+
 is_on = True
 
+
+# user flow below
+# functions above
+
 # prompt the user to ask what they like
-# step 1
 # since the prompt should show every time an action is completed I will use a while loop
 while is_on:
+    # step 1 ----------
+    # prompt the user to ask what they would like to drink
+    # prompt them by using choice
     choice = input("​What would you like? (espresso/latte/cappuccino): ")
-    # step 2
+    # step 2 ----------
     # turn off the coffee machine when choice == 'off'
     if choice == "off":
         is_on = False
-    # step 3
+    # step 3 ----------
     # when a user choose report - print out a detailed report of the resources remaining
     # water, milk, coffee, and money
     elif choice == "report":
@@ -105,9 +119,14 @@ while is_on:
         print(f"Coffee: {resources['coffee']}g")
         print(f"Money: ${profit}")
     else:
-        # step 5
-        drink = MENU[choice]
+        # step 4 ------------
+        # check if there resources are suffiicient
+        # if order a drink requing 400 ml and there are only 200ml in the machine, then it will be insufficient
+         drink = MENU[choice]
         if is_resource_sufficient(drink["ingredients"]):
+            # process 5 ---- if there are sufficient resources, then prompt the user to enter coins
             payment = process_coins()
+            # process 6 ----- check that the user has inserted enough money to purchase the drink they selected
             if is_transaction_successful(payment, drink["cost"]):
+                # process 7 ----- make coffee
                 make_coffee(choice, drink["ingredients"])
